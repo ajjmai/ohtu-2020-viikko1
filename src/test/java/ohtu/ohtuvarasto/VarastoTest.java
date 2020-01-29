@@ -65,4 +65,57 @@ public class VarastoTest {
         assertEquals(4, varasto.paljonkoMahtuu(), vertailuTarkkuus);
     }
 
+    @Test
+    public void otaLiikaa() {
+        varasto.lisaaVarastoon(5);
+
+        double maara = varasto.otaVarastosta(7);
+        assertEquals(5, maara, vertailuTarkkuus);
+        assertEquals(0, varasto.getSaldo(), vertailuTarkkuus);
+    }
+
+    @Test
+    public void otaNolla() {
+        varasto.lisaaVarastoon(5);
+        double maara = varasto.otaVarastosta(-2);
+
+        assertEquals(0, maara, vertailuTarkkuus);
+    }
+
+    @Test
+    public void lisaaLiikaa() {
+        varasto.lisaaVarastoon(15);
+        assertEquals(10, varasto.getSaldo(), vertailuTarkkuus);
+    }
+
+    @Test
+    public void lisaaNolla() {
+        varasto.lisaaVarastoon(-3);
+        assertEquals(0, varasto.getSaldo(), vertailuTarkkuus);
+    }
+
+    @Test
+    public void testaaKonstruktoreja() {
+        Varasto toinenVarasto = new Varasto(0, -2);
+        assertEquals(0, toinenVarasto.getSaldo(), vertailuTarkkuus);
+        assertEquals(0, toinenVarasto.getTilavuus(), vertailuTarkkuus);
+
+        Varasto kolmasVarasto = new Varasto(10, 5);
+        assertEquals(5, kolmasVarasto.getSaldo(), vertailuTarkkuus);
+        assertEquals(10, kolmasVarasto.getTilavuus(), vertailuTarkkuus);
+
+        Varasto neljasVarasto = new Varasto(10, 15);
+        assertEquals(10, neljasVarasto.getSaldo(), vertailuTarkkuus);
+
+        Varasto viidesVarasto = new Varasto(0);
+        assertEquals(0, viidesVarasto.getTilavuus(), vertailuTarkkuus);
+    }
+
+    @Test
+    public void testaaString() {
+        varasto.lisaaVarastoon(4);
+        assertEquals(("saldo = " + varasto.getSaldo() + ", vielä tilaa " + varasto.paljonkoMahtuu()),
+                varasto.toString());
+    }
+
 }
